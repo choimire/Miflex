@@ -9,4 +9,31 @@
 
 
     <context:component-scan base-package="net.mirechoi.miflex.config" />
-</beans>
+
+  <!-- DB 연결 -->
+   <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+      <property name="url" value="jdbc:mysql://localhost:3306/webproject?useUnicode=true&amp;characterEncoding=utf-8" />
+      <property name="username" value="root" />
+      <property name="password" value="0210" />
+   </bean>
+   
+   <!-- jdbc template 등록 -->
+   <!-- <bean name="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+      <property name="dataSource" ref="dataSource" />
+   </bean> -->
+   
+   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+      <property name="dataSource" ref="dataSource"/>
+      <property name="configLocation" value="classpath:/mybatis-config.xml" />
+      <property name="mapperLocations" value="classpath:mapper/**/*.xml"/>
+   </bean>
+   
+   <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+      <constructor-arg ref="sqlSessionFactory" />
+   </bean>
+   
+   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+      <property name="basePackage" value="net.mirechoi.miflex.mapper" />
+   </bean>
+   </beans>

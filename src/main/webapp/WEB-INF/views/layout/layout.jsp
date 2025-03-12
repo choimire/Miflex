@@ -17,11 +17,11 @@
 </header>
 <div class="container">
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-3 border-left-1 pt-3">
 <tiles:insertAttribute name="left"/>
 		
 		</div>
-		<div class="col-md-9">
+		<div class="col-md-9 border-left-1 border-right-1 pt-3">
 <tiles:insertAttribute name="body"/>
 		
 		</div>
