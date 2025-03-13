@@ -13,7 +13,7 @@
   <!-- DB 연결 -->
    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-      <property name="url" value="jdbc:mysql://localhost:3306/webproject?useUnicode=true&amp;characterEncoding=utf-8" />
+      <property name="url" value="jdbc:mysql://localhost:3306/miflex?useUnicode=true&amp;characterEncoding=utf-8" />
       <property name="username" value="root" />
       <property name="password" value="0210" />
    </bean>

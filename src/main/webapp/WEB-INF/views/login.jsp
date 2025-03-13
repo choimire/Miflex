@@ -18,7 +18,7 @@
 				<tr>
 				<td>PASSWORD:</td>
 				<td>
-				<input type="password" name="password" class="form-control" id="password" placeholder="password">
+				<input type="password" name="userpass" class="form-control" id="password" placeholder="password">
 				</td>
 				</tr>
 				<tr>
