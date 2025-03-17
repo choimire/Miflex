@@ -1,0 +1,19 @@
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+  <configuration>
+    <settings>
+  <!-- log4j setting -->
+  	<setting name="logImpl" value="LOG4J"/>
+       <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+  
+  		
+  <!-- 별칭 등록 -->
+  <typeAliases>
+  <typeAlias alias="Users" type="net.mirechoi.miflex.dto.Users"/>
+  <typeAlias alias="UsersRole" type="net.mirechoi.miflex.dto.UsersRole"/>
+  <typeAlias alias="FileDTO" type="net.mirechoi.miflex.dto.FileDTO"/>
+  </typeAliases>
+  </configuration>

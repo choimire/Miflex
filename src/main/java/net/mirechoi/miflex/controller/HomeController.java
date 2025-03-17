@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,30 +32,24 @@ import net.mirechoi.miflex.util.IpUtil;
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Autowired
+	private UsersMapper userMapper;
 	
-	
-	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-
-		
-		model.addAttribute("serverTime", "몰라");
-		
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home(HttpServletRequest request, Model model) {
+    	
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	System.out.println("로그인 정보 : " + auth.getName());
+    	
+    	if(auth != null) {
+    		Users cuser = userMapper.getUserForUserId(auth.getName());    		
+    		model.addAttribute("cuser", cuser );
+    		System.out.println(cuser);
+    	}
+    	
 		return "main.index";
 	}
-	@GetMapping("/test")
-	public String testForm() {
-		return "main.test";
-	}
-	@PostMapping("/test")
-	public String test(
-			@RequestParam("test") String test,
-			@RequestParam(value="file",required=false) MultipartFile file
-			) {
-		return null;
-	}
-	
-}
 
+
+}
 

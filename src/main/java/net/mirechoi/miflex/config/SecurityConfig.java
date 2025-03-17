@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-
+import net.mirechoi.miflex.mapper.UsersMapper;
 import net.mirechoi.miflex.service.CustomUserDetailService;
 
 @Configuration
@@ -20,44 +20,67 @@ import net.mirechoi.miflex.service.CustomUserDetailService;
 
 public class SecurityConfig {
 	
-//	private final CustomUserDetailService userDetailService;
+	private final UsersMapper usersMapper;
 	
-	private CustomUserDetailService userDetailService() {
-		return new CustomUserDetailService();
-	}
+    public SecurityConfig(UsersMapper userMapper) {
+    	this.usersMapper = userMapper;
+    }
+	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		
 		http
+		.csrf()
+		.and()
 		.authorizeRequests()
 		.antMatchers("/admin/**").hasRole("ADMIN")
-		.antMatchers("/member/**").hasAnyRole("ADMIN","USER")
+		.antMatchers("/member/**").hasAnyRole("ADMIN", "USER")
 		.antMatchers("/**").permitAll()
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()
-		.loginPage("/login")
-		.usernameParameter("userid")
-		.usernameParameter("userpass")
-		.defaultSuccessUrl("/" ,true)
-		.failureUrl("/login?error=true")
-		.permitAll()
+		   .loginPage("/login")
+		   .usernameParameter("userid")
+		   .passwordParameter("userpass")
+		   .defaultSuccessUrl("/", true)
+		   .failureUrl("/login?error=true")
+		   .permitAll()
 		.and()
-		.logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
+		.logout()
+		   .logoutUrl("/logout")
+		   .logoutSuccessUrl("/")
+		   .permitAll();
 		
 		return http.build();
+		
 	}
 	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	//인증관리자 설정
+	/*
+	 * @Bean public PasswordEncoder passwordEncoder() { return new
+	 * BCryptPasswordEncoder(); }
+	 * 
+	 * @Bean public CustomUserDetailService customUserDetailsService() { return new
+	 * CustomUserDetailService(usersMapper);
+	 */
+	/*}*/
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public CustomUserDetailService customUserDetailsService() {
+        return new CustomUserDetailService(usersMapper);
+    }
+
+	
+	//인증 관리자 설정
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception{
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-		authProvider.setUserDetailsService(userDetailService());
+		authProvider.setUserDetailsService(customUserDetailsService());
 		authProvider.setPasswordEncoder(passwordEncoder());
 		return new ProviderManager(authProvider);
 	}
 }
+

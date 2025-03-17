@@ -32,10 +32,10 @@
 	<beans:bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<beans:property name="definitions" value="classpath:tiles/tiles.xml"/>
 	</beans:bean>
-	
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+	   <!-- 멀티파트 등록 -->
+   <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
    </beans:bean>
-	
 	
 	<context:component-scan base-package="net.mirechoi.miflex" />
 	

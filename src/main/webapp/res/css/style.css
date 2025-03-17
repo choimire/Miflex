@@ -88,3 +88,51 @@ nav a:hover{
 	margin-right:auto;
 	
 }
+.formbox{
+	margin:20px 10px;
+	border:1px solid #eee;
+	border-radius:10px;
+	padding:20px;
+	background:rgba(0,0,0,0.05);
+}
+.formbox div{
+	margin-bottom:10px;
+}
+.formbox a{
+	letter-spacing:-1px;
+}
+.userbox{
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:20px;
+	width:60px;
+	height:60px;
+	overflow:hidden;
+	border-radius:50%;
+}
+.userbox img{
+	width:60px;
+	height:60px;
+	object-fit:cover;
+}
+/**** signup ***/
+.signup-title{
+  width:180px;
+  border-bottom:3px double #ddd;
+  margin:40px auto;
+  font-weight:bold;
+}
+.member-title{
+  width:250px;
+  border-bottom:3px double #ddd;
+  margin:40px auto;
+  font-weight:bold;
+}
+.userimg{
+	margin-top:10px;
+	max-width:80%;
+	text-align:center;
+}
+#loginform table{
+	margin:30px auto;
+}
